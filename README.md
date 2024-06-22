@@ -43,7 +43,7 @@ To help you get started creating a container from this image you can either use 
 ---
 services:
   qbittorrent-vpn:
-    image: ghcr.io/clement-brodu/qbittorrent-vpn:latest
+    image: clmntbrd/qbittorrent-vpn:latest
     container_name: qbittorrent-vpn
     cap_add:
       - NET_ADMIN

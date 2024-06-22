@@ -1,1 +1,1 @@
-docker build -t clement-brodu/qbittorrent-vpn:latest .
+docker build -t clmntbrd/qbittorrent-vpn:latest .
