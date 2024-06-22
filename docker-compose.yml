@@ -1,0 +1,38 @@
+services:
+  qbittorrent-vpn-dev:
+    image: clement-brodu/qbittorrent-vpn:dev
+    build:
+      context: .  
+      dockerfile: Dockerfile
+    container_name: qbittorrent-vpn-dev
+    cap_add:
+      - NET_ADMIN
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - WEBUI_PORT=8081
+      - TORRENTING_PORT=6882
+      - VPN_ENABLED=yes
+      - LAN_NETWORK=192.168.1.0/24
+      - NAME_SERVERS=8.8.8.8,8.8.4.4
+      - OUTPUT_POLICY=ACCEPT
+    volumes:
+      - .\volumes\dev\data:/config
+      - .\volumes\dev\downloads:/downloads
+    ports:
+      - 8081:8081
+      - 6882:6882
+      - 6882:6882/udp
+    restart: unless-stopped
+    healthcheck:
+      test: /etc/scripts/health.sh || exit 1
+      interval: 40s
+      timeout: 30s
+      retries: 3
+      start_period: 60s  
